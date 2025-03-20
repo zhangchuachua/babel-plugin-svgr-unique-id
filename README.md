@@ -32,22 +32,33 @@
 </svg>
 ```
 
-## 安装
+## TODO
 
-```bash
-npm i babel-plugin-svgr-unique-id -D
-```
+处理这样的 svg:
 
-## 使用
-
-修改 [svgr options](https://react-svgr.com/docs/options/) 中的 jsx
-
-```js
-module.exports = {
-  jsx: {
-    babelConfig: {
-      plugins: ['svgr-unique-id']
-    }
-  }
-}
+```svg
+<svg height="150" width="400">
+    <ellipse className=".el1" cx="200" cy="70" rx="85" ry="55" fill="url(#grad1)" />
+    <ellipse className=".el2" cx="200" cy="70" rx="85" ry="55" fill="url(#grad2)" />
+    <style>
+        {'.el1 { fill: url(#grad1); } .el2 { fill: url(#grad2); }'}
+    </style>
+    <style>
+        {'.el1{fill:url(#grad1);}.el2{fill:url(#grad2);}'}
+    </style>
+    <defs>
+        <style>
+            {'.el1 { fill: url(#grad1); }'}
+            {'.el2 { fill: url(#grad2); }'}
+        </style>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+        </linearGradient>
+    </defs>
+</svg>
 ```
